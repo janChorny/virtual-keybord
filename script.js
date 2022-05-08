@@ -11,8 +11,8 @@ const keybord = document.createElement('div');
 const keyLayout = [ 
 	"`","1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-","=","backspace",
 	"Tab","q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[","]","\\","del",
-	"caps lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter",
-	"shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "Up","shift",
+	"caps lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter",
+	"Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "Up","Shift",
 	"Ctrl","Win","Alt","Space", "Alt", "Ctrl","Left", "Down", "Right"
 ];
 keyLayout.forEach(key => {
@@ -30,7 +30,6 @@ keybordKeys[41].classList.add('keyboard__key--wide');
 keybordKeys[42].classList.add('keyboard__key--wide');
 keybordKeys[54].classList.add('keyboard__key--wide');
 keybordKeys[58].classList.add('keyboard__key--extra-wide');
-console.log(keybordKeys);
 //add classes
 
 wrapper.classList.add('wrapper');
@@ -59,3 +58,42 @@ wrapper.append(main);
 main.append(mainScreen);
 main.append(keybord);
 
+//add functions
+//click on any key add fill in the screen
+let selectedButton;
+
+// keybord.onclick = function (event) {
+// 	let target = event.target; // где был клик?
+// 	if (target.tagName != 'button') return; // не на TD? тогда не интересует
+// 	mainScreen.textContent = target.textContent;
+// };
+
+
+keybord.onclick = function(event){
+	let button = event.target.closest('button');
+	// let str = mainScreen.textContent;
+	let str = mainScreen.value;
+	if (!button) return;
+	if (!keybord.contains(button)) return;
+	button.value = button.textContent;
+	if (button.textContent === 'backspace' || 
+	button.textContent === 'Tab' || 
+	button.textContent === 'del' || 
+	button.textContent === 'caps lock' || 
+	button.textContent === 'Enter' ||
+	button.textContent === 'Shift' ||
+	button.textContent === 'Up' ||
+	button.textContent === 'Ctrl' ||
+	button.textContent === 'Win' ||
+	button.textContent === 'Alt' ||
+	button.textContent === 'Space' ||
+	button.textContent === 'Left' ||
+	button.textContent === 'Down' ||
+	button.textContent === 'Right') {
+	button.value = '';
+	}
+	mainScreen.append(button.value);
+	str = mainScreen.value;
+	console.log(str);
+	
+}

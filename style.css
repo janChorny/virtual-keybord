@@ -130,10 +130,18 @@ body {
 	padding: 0;
 	-webkit-tap-highlight-color: transparent;
 	position: relative;
+	transition: 0.5s;
+	/* box-shadow: 0px 4px 2px 0px #000; */
+	transform: translateY(-1px,-1px);
 }
 
-.keyboard__key:hover {
+.keyboard__key:hover{
 	background: rgb(161, 156, 156);
+}
+.keyboard__key:active {
+	background: rgb(161, 156, 156);
+	transform: translateY(1px, 1px);
+	box-shadow: none;
 }
 
 .keyboard__key--half-wide {
