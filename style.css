@@ -144,6 +144,12 @@ body {
 	box-shadow: none;
 }
 
+.keyboard__key.active {
+	background: rgb(161, 156, 156);
+	transform: translateY(1px, 1px);
+	box-shadow: none;
+}
+
 .keyboard__key--half-wide {
 	width: 10%;
 	max-width: 120px;

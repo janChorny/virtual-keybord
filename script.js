@@ -15,6 +15,7 @@ const keyLayout = [
 	"Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "Up","Shift",
 	"Ctrl","Win","Alt","Space", "Alt", "Ctrl","Left", "Down", "Right"
 ];
+
 keyLayout.forEach(key => {
 	const keyElement = document.createElement("button");
 	keyElement.classList.add('keyboard__key');
@@ -70,6 +71,7 @@ let selectedButton;
 
 
 keybord.onclick = function(event){
+	let pos = getCursorPosition(mainScreen);
 	let button = event.target.closest('button');
 	if (!button) return;
 	if (!keybord.contains(button)) return;
@@ -91,7 +93,36 @@ keybord.onclick = function(event){
 	button.value = '';
 	}
 	if (button.textContent === 'backspace' && mainScreen.value.length !== 0) {
-		mainScreen.value  = mainScreen.value.substring(0, mainScreen.value.length - 1);
+		mainScreen.value = mainScreen.value.substring(0, pos - 1) + mainScreen.value.substring(pos, mainScreen.value.length);
  }
 	mainScreen.value = mainScreen.value.concat(button.value);
+	mainScreen.focus();
 }
+//find cursor position on text area
+function getCursorPosition(ctrl) {
+	var CaretPos = 0;
+	if (document.selection) {
+		ctrl.focus();
+		var Sel = document.selection.createRange();
+		Sel.moveStart('character', -ctrl.value.length);
+		CaretPos = Sel.text.length;
+	} else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
+		CaretPos = ctrl.selectionStart;
+	}
+	return CaretPos;
+}
+
+//keybords bind template
+const keyObject = {
+	"KeyL": "l",
+};
+document.addEventListener('keydown', function (event) {
+	if (event.code === Object.keys(keyObject)[0]){
+		for (let i = 0; i < keybordKeys.length; i++){
+			if (keybordKeys[i].textContent === Object.values(keyObject)[0]){
+				keybordKeys[i].classList.toggle('active');
+				mainScreen.value = mainScreen.value.concat(Object.values(keyObject)[0]);
+			}
+		}
+	}
+});
