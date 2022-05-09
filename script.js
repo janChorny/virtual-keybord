@@ -71,8 +71,6 @@ let selectedButton;
 
 keybord.onclick = function(event){
 	let button = event.target.closest('button');
-	// let str = mainScreen.textContent;
-	let str = mainScreen.value;
 	if (!button) return;
 	if (!keybord.contains(button)) return;
 	button.value = button.textContent;
@@ -92,8 +90,8 @@ keybord.onclick = function(event){
 	button.textContent === 'Right') {
 	button.value = '';
 	}
-	mainScreen.append(button.value);
-	str = mainScreen.value;
-	console.log(str);
-	
+	if (button.textContent === 'backspace' && mainScreen.value.length !== 0) {
+		mainScreen.value  = mainScreen.value.substring(0, mainScreen.value.length - 1);
+ }
+	mainScreen.value = mainScreen.value.concat(button.value);
 }
